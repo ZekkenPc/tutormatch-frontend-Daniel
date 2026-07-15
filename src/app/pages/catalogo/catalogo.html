@@ -181,7 +181,7 @@
       <!-- Botón de inscripción — solo para ROLE_ALUMNO autenticados -->
       <div class="card-footer">
         <button
-          *ngIf="authService.isLoggedIn && authService.hasRole('ROLE_ALUMNO')"
+          *ngIf="authService.isLoggedIn && authService.hasRole('ROLE_ALUMNO') && !sesionesInscritas.has(sesion.id)"
           class="btn-inscribir"
           [disabled]="sesion.cupoDisponible === 0 || inscribiendoId === sesion.id"
           (click)="inscribirse(sesion)"
@@ -196,6 +196,16 @@
           {{ inscribiendoId === sesion.id ? 'Procesando...' :
              sesion.cupoDisponible === 0 ? 'Sin cupo' : 'Inscribirme' }}
         </button>
+
+        <div *ngIf="authService.isLoggedIn && authService.hasRole('ROLE_ALUMNO') && sesionesInscritas.has(sesion.id)"
+             class="btn-inscribir" style="background-color: #2e7d32; cursor: default; border: none; justify-content: center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          Ya inscrito
+        </div>
 
         <!-- Mensaje para usuarios no logueados -->
         <p class="login-hint"
