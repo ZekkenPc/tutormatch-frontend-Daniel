@@ -1,0 +1,171 @@
+.admin-page {
+  padding: 32px 5%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  margin-bottom: 24px;
+}
+
+.admin-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.admin-subtitle {
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.admin-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-state-error {
+  color: #b91c1c;
+  justify-content: space-between;
+}
+
+.btn-reintentar {
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-reintentar:hover {
+  background: var(--primary-hover);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(37, 99, 235, 0.25);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tabla-wrapper {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  overflow-x: auto;
+}
+
+.tabla-solicitudes {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-solicitudes thead th {
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  white-space: nowrap;
+}
+
+.tabla-solicitudes tbody td {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  color: var(--text-dark);
+  vertical-align: top;
+}
+
+.tabla-solicitudes tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-solicitudes tbody tr:hover {
+  background: var(--bg-light);
+}
+
+.celda-nombre {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.celda-email {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.celda-justificacion {
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+.celda-acciones-header {
+  text-align: right;
+}
+
+.celda-acciones {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.btn-accion {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+  margin-left: 8px;
+}
+
+.btn-accion:active {
+  transform: scale(0.97);
+}
+
+.btn-accion:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-aprobar {
+  background: #16a34a;
+  color: var(--white);
+}
+
+.btn-aprobar:hover:not(:disabled) {
+  background: #15803d;
+}
+
+.btn-rechazar {
+  background: var(--white);
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.btn-rechazar:hover:not(:disabled) {
+  background: #fef2f2;
+}

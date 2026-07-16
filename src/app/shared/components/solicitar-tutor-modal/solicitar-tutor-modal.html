@@ -1,0 +1,38 @@
+<div class="modal-overlay" *ngIf="visible" (click)="onCerrar()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Quiero ser Tutor</h3>
+      <button class="btn-close" (click)="onCerrar()" [disabled]="enviando">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <p class="modal-hint">
+        Cuéntanos por qué te gustaría convertirte en Tutor. Un Administrador revisará tu
+        solicitud para aprobarla.
+      </p>
+
+      <label for="justificacion" class="modal-label">Justificación</label>
+      <textarea
+        id="justificacion"
+        name="justificacion"
+        rows="5"
+        placeholder="Ej. Tengo un promedio destacado en Cálculo Diferencial y ya he apoyado a compañeros en semestres anteriores..."
+        [(ngModel)]="justificacion"
+        [disabled]="enviando"
+      ></textarea>
+
+      <div class="modal-footer-hint">
+        <span [class.text-error]="justificacion.trim().length > 0 && !esValido">
+          {{ justificacion.trim().length }} / {{ minCaracteres }} caracteres mínimo
+        </span>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="onCerrar()" [disabled]="enviando">Cancelar</button>
+      <button class="btn-primary" (click)="onEnviar()" [disabled]="!esValido || enviando">
+        {{ enviando ? 'Enviando...' : 'Enviar solicitud' }}
+      </button>
+    </div>
+  </div>
+</div>

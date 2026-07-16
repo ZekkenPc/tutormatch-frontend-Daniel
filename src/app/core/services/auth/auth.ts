@@ -90,4 +90,21 @@ export class AuthService {
     const payload = this.decodedToken;
     return payload?.sub || '';
   }
+
+  // HU-08: pide un access token nuevo usando el refresh_token guardado,
+  // sin mandar al usuario a loguearse de nuevo. El backend (auth) ahora
+  // vuelve a consultar los roles actuales en la BD en cada emisión de
+  // token, así que este refresh sí trae el rol actualizado (ej. TUTOR)
+  // si el usuario acaba de ser aprobado.
+  public async refrescarToken(): Promise<boolean> {
+    try {
+      await this.oauthService.refreshToken();
+      return true;
+    } catch (error) {
+      // Si no hay refresh_token válido (ej. sesión expirada de verdad),
+      // no rompemos la app por esto; el resto de guards se encargan de
+      // mandar a login cuando corresponda.
+      return false;
+    }
+  }
 }

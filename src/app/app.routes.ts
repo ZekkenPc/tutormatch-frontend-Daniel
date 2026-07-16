@@ -4,7 +4,9 @@ import { Layout } from './pages/layout/layout';
 import { Home } from './pages/home/home';
 import { authGuard } from './core/guards/auth-guard';
 import { publicGuard } from './core/guards/auth-guard';
+import { roleGuard } from './core/guards/auth-guard';
 import { Register } from './pages/register/register';
+import { Admin } from './pages/admin/admin';
 
 export const routes: Routes = [
   {
@@ -13,11 +15,11 @@ export const routes: Routes = [
     canActivate: [publicGuard],
     component: Landing,
   },
-  { 
+  {
     // Ruta pública para registro
     path: 'registro',
     canActivate: [publicGuard],
-    component: Register, 
+    component: Register,
   },
   {
     // Rutas privadas
@@ -26,6 +28,8 @@ export const routes: Routes = [
     canActivateChild: [authGuard],
     children: [
       { path: 'home', component: Home },
+      // HU-06: Panel de Administración, solo visible para rol ADMIN
+      { path: 'admin', component: Admin, canActivate: [roleGuard('ROLE_ADMIN')] },
       // Aquí agregaremos luego las rutas de tus compañeros (catalogo, agenda, etc.)
     ],
   },

@@ -1,0 +1,60 @@
+<div class="admin-page">
+  <header class="admin-header">
+    <h1>Panel de Administración</h1>
+    <p class="admin-subtitle">Solicitudes de rol Tutor pendientes de revisión</p>
+  </header>
+
+  <!-- Estado: cargando -->
+  <div class="admin-state" *ngIf="cargando">
+    <span class="spinner"></span>
+    Cargando solicitudes…
+  </div>
+
+  <!-- Estado: error -->
+  <div class="admin-state admin-state-error" *ngIf="!cargando && error">
+    No se pudieron cargar las solicitudes.
+    <button class="btn-reintentar" (click)="cargarSolicitudes()">Reintentar</button>
+  </div>
+
+  <!-- Estado: vacío -->
+  <div class="admin-state" *ngIf="!cargando && !error && solicitudes.length === 0">
+    No hay solicitudes pendientes por ahora.
+  </div>
+
+  <!-- Tabla -->
+  <div class="tabla-wrapper" *ngIf="!cargando && !error && solicitudes.length > 0">
+    <table class="tabla-solicitudes">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo institucional</th>
+          <th>Justificación</th>
+          <th class="celda-acciones-header">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let solicitud of solicitudes">
+          <td class="celda-nombre">{{ solicitud.nombre }}</td>
+          <td class="celda-email">{{ solicitud.email }}</td>
+          <td class="celda-justificacion">{{ solicitud.justificacion }}</td>
+          <td class="celda-acciones">
+            <button
+              class="btn-accion btn-aprobar"
+              [disabled]="procesando.has(solicitud.id)"
+              (click)="aprobar(solicitud)"
+            >
+              Aprobar
+            </button>
+            <button
+              class="btn-accion btn-rechazar"
+              [disabled]="procesando.has(solicitud.id)"
+              (click)="rechazar(solicitud)"
+            >
+              Rechazar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

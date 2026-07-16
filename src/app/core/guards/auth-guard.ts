@@ -27,3 +27,23 @@ export const publicGuard: CanActivateFn = async (route, state) => {
   }
   return true;
 };
+
+// HU-06: fábrica de guard para rutas que solo debe ver un rol específico
+// (ej. roleGuard('ROLE_ADMIN') para /app/admin). El backend igual valida
+// con @PreAuthorize, esto es una segunda capa para que un usuario sin el
+// rol no pueda ni entrar a la vista escribiendo la URL a mano.
+export const roleGuard = (rolRequerido: string): CanActivateFn => {
+  return async () => {
+    const authService = inject(AuthService);
+    const router = inject(Router);
+
+    const isAuthenticated = await authService.waitForAuthReady();
+
+    if (isAuthenticated && authService.hasRole(rolRequerido)) {
+      return true;
+    }
+
+    router.navigate(['/app/home']);
+    return false;
+  };
+};
