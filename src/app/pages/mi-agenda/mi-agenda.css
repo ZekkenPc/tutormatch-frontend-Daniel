@@ -333,6 +333,7 @@
 }
 
 .btn-editar,
+.btn-foro,
 .btn-cancelar,
 .btn-cancelar-inscripcion {
   flex: 1;
@@ -347,6 +348,15 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+.btn-foro {
+  color: #475569; /* slate-600 */
+  border-right: 1px solid #f1f5f9;
+}
+
+.btn-foro:hover {
+  background: #f8fafc; /* slate-50 */
 }
 
 .btn-editar {
@@ -364,7 +374,6 @@
 
 .btn-cancelar-inscripcion {
   color: #dc2626;
-  width: 100%;
 }
 
 .btn-cancelar-inscripcion:hover { background: #fef2f2; }

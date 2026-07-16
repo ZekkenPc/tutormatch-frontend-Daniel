@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SesionService, SesionResponse, SesionRequest, SesionUpdate } from '../../core/services/sesion/sesion';
+import {
+  SesionService,
+  SesionResponse,
+  SesionRequest,
+  SesionUpdate,
+} from '../../core/services/sesion/sesion';
 import { InscripcionService, AgendaAlumno } from '../../core/services/inscripcion/inscripcion';
 import { ToastService } from '../../core/services/toast/toast';
 import { AuthService } from '../../core/services/auth/auth';
@@ -16,7 +21,6 @@ import { Toast } from '../../shared/components/toast/toast';
   styleUrl: './mi-agenda.css',
 })
 export class MiAgenda implements OnInit {
-
   // -----------------------------------------------------------------------
   // Sección TUTOR (HU-10, 11, 12) — sesiones a impartir
   // -----------------------------------------------------------------------
@@ -37,6 +41,8 @@ export class MiAgenda implements OnInit {
   sesionEditandoId: string | null = null;
   fechaBloqueada = false;
   formulario: SesionRequest = this.formularioVacio();
+
+  isCanceling = false;
 
   constructor(
     private sesionService: SesionService,
@@ -62,8 +68,14 @@ export class MiAgenda implements OnInit {
   cargarAgendaTutor(): void {
     this.cargandoTutor = true;
     this.sesionService.getAgenda().subscribe({
-      next: (data) => { this.sesionesComoTutor = data; this.cargandoTutor = false; },
-      error: () => { this.toastService.mostrar('No se pudo cargar tu agenda como tutor.', 'error'); this.cargandoTutor = false; },
+      next: (data) => {
+        this.sesionesComoTutor = data;
+        this.cargandoTutor = false;
+      },
+      error: () => {
+        this.toastService.mostrar('No se pudo cargar tu agenda como tutor.', 'error');
+        this.cargandoTutor = false;
+      },
     });
   }
 
@@ -74,8 +86,14 @@ export class MiAgenda implements OnInit {
   cargarAgendaAlumno(): void {
     this.cargandoAlumno = true;
     this.inscripcionService.getAgendaAlumno().subscribe({
-      next: (data) => { this.sesionesComoAlumno = data; this.cargandoAlumno = false; },
-      error: () => { this.toastService.mostrar('No se pudo cargar tu agenda como alumno.', 'error'); this.cargandoAlumno = false; },
+      next: (data) => {
+        this.sesionesComoAlumno = data;
+        this.cargandoAlumno = false;
+      },
+      error: () => {
+        this.toastService.mostrar('No se pudo cargar tu agenda como alumno.', 'error');
+        this.cargandoAlumno = false;
+      },
     });
   }
 
@@ -120,18 +138,22 @@ export class MiAgenda implements OnInit {
 
   guardarSesion(): void {
     if (!this.formulario.titulo?.trim()) {
-      this.toastService.mostrar('El título es obligatorio.', 'error'); return;
+      this.toastService.mostrar('El título es obligatorio.', 'error');
+      return;
     }
     if (!this.formulario.fechaHora) {
-      this.toastService.mostrar('La fecha y hora son obligatorias.', 'error'); return;
+      this.toastService.mostrar('La fecha y hora son obligatorias.', 'error');
+      return;
     }
     if (!this.formulario.cupoMaximo || this.formulario.cupoMaximo < 1) {
-      this.toastService.mostrar('El cupo máximo debe ser al menos 1.', 'error'); return;
+      this.toastService.mostrar('El cupo máximo debe ser al menos 1.', 'error');
+      return;
     }
     const fechaSeleccionada = new Date(this.formulario.fechaHora);
     const limiteMinimo = new Date(Date.now() + 60 * 60 * 1000);
     if (!this.fechaBloqueada && fechaSeleccionada <= limiteMinimo) {
-      this.toastService.mostrar('La fecha debe ser al menos 1 hora en el futuro.', 'error'); return;
+      this.toastService.mostrar('La fecha debe ser al menos 1 hora en el futuro.', 'error');
+      return;
     }
 
     this.cargandoTutor = true;
@@ -146,14 +168,31 @@ export class MiAgenda implements OnInit {
       if (!this.fechaBloqueada) update.fechaHora = this.formulario.fechaHora + ':00';
 
       this.sesionService.actualizar(this.sesionEditandoId, update).subscribe({
-        next: () => { this.toastService.mostrar('¡Sesión actualizada!', 'success'); this.cerrarFormulario(); this.cargarAgendaTutor(); },
-        error: (err) => { this.toastService.mostrar(err.error || 'Error al actualizar.', 'error'); this.cargandoTutor = false; },
+        next: () => {
+          this.toastService.mostrar('¡Sesión actualizada!', 'success');
+          this.cerrarFormulario();
+          this.cargarAgendaTutor();
+        },
+        error: (err) => {
+          this.toastService.mostrar(err.error || 'Error al actualizar.', 'error');
+          this.cargandoTutor = false;
+        },
       });
     } else {
-      const request: SesionRequest = { ...this.formulario, fechaHora: this.formulario.fechaHora + ':00' };
+      const request: SesionRequest = {
+        ...this.formulario,
+        fechaHora: this.formulario.fechaHora + ':00',
+      };
       this.sesionService.crear(request).subscribe({
-        next: () => { this.toastService.mostrar('¡Sesión publicada!', 'success'); this.cerrarFormulario(); this.cargarAgendaTutor(); },
-        error: (err) => { this.toastService.mostrar(err.error || 'Error al publicar.', 'error'); this.cargandoTutor = false; },
+        next: () => {
+          this.toastService.mostrar('¡Sesión publicada!', 'success');
+          this.cerrarFormulario();
+          this.cargarAgendaTutor();
+        },
+        error: (err) => {
+          this.toastService.mostrar(err.error || 'Error al publicar.', 'error');
+          this.cargandoTutor = false;
+        },
       });
     }
   }
@@ -163,14 +202,22 @@ export class MiAgenda implements OnInit {
   // =========================================================================
 
   confirmarCancelacionSesion(sesion: SesionResponse): void {
+    this.isCanceling = true;
     this.toastService.preguntar(
       `¿Cancelar "${sesion.titulo}"? Esto notificará a los alumnos inscritos.`,
       () => {
         this.sesionService.cancelar(sesion.id).subscribe({
-          next: () => { this.toastService.mostrar('Sesión cancelada.', 'info'); this.cargarAgendaTutor(); },
-          error: (err) => this.toastService.mostrar(err.error || 'Error al cancelar.', 'error'),
+          next: () => {
+            this.isCanceling = false;
+            this.toastService.mostrar('Sesión cancelada.', 'info');
+            this.cargarAgendaTutor();
+          },
+          error: (err) => {
+            this.isCanceling = false;
+            this.toastService.mostrar(err.error || 'Error al cancelar.', 'error');
+          },
         });
-      }
+      },
     );
   }
 
@@ -179,14 +226,22 @@ export class MiAgenda implements OnInit {
   // =========================================================================
 
   confirmarCancelacionInscripcion(sesion: AgendaAlumno): void {
+    this.isCanceling = true;
     this.toastService.preguntar(
       `¿Estás seguro de cancelar tu asistencia a "${sesion.titulo}"? Tu lugar quedará disponible para otros.`,
       () => {
         this.inscripcionService.cancelarInscripcion(sesion.inscripcionId).subscribe({
-          next: () => { this.toastService.mostrar('Inscripción cancelada. Tu lugar ha sido liberado.', 'info'); this.cargarAgendaAlumno(); },
-          error: (err) => this.toastService.mostrar(err.error || 'Error al cancelar.', 'error'),
+          next: () => {
+            this.toastService.mostrar('Inscripción cancelada. Tu lugar ha sido liberado.', 'info');
+            this.cargarAgendaAlumno();
+            this.isCanceling = false;
+          },
+          error: (err) => {
+            this.toastService.mostrar(err.error || 'Error al cancelar.', 'error');
+            this.isCanceling = false;
+          },
         });
-      }
+      },
     );
   }
 
@@ -204,8 +259,12 @@ export class MiAgenda implements OnInit {
 
   formatearFecha(fechaIso: string): string {
     return new Date(fechaIso).toLocaleDateString('es-MX', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-      hour: '2-digit', minute: '2-digit',
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     });
   }
 }

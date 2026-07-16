@@ -12,12 +12,21 @@
       rows="4"
       placeholder="¿Qué dudas tienes sobre el contenido de esta tutoría?"
     ></textarea>
-    <button class="btn-primary" type="button" (click)="enviarPregunta()" [disabled]="cargando">
-      Publicar pregunta
+    <button
+      [disabled]="cargando"
+      class="btn-primary"
+      type="button"
+      (click)="enviarPregunta()"
+      [disabled]="cargando"
+    >
+      {{ cargando ? 'Publicando...' : 'Publicar pregunta' }}
     </button>
   </div>
 
-  <div class="foro-card" *ngIf="authService.hasRole('ROLE_ALUMNO') && !puedePublicarPregunta && !cargandoInscripcion">
+  <div
+    class="foro-card"
+    *ngIf="authService.hasRole('ROLE_ALUMNO') && !puedePublicarPregunta && !cargandoInscripcion"
+  >
     <p>Solo puedes publicar preguntas si ya estás inscrito formalmente en esta tutoría.</p>
   </div>
 
@@ -28,7 +37,7 @@
       <div class="pregunta-info">
         <div class="pregunta-meta">
           <strong>{{ pregunta.alumnoNombre }}</strong>
-          <span>{{ pregunta.creadoEn | date:'short' }}</span>
+          <span>{{ pregunta.creadoEn | date: 'short' }}</span>
         </div>
         <p class="pregunta-texto">{{ pregunta.pregunta }}</p>
       </div>
@@ -47,7 +56,7 @@
       <div class="respuesta-card" *ngIf="pregunta.respuesta">
         <span class="label">Respuesta del tutor</span>
         <p>{{ pregunta.respuesta }}</p>
-        <small>{{ pregunta.respondidoEn | date:'short' }}</small>
+        <small>{{ pregunta.respondidoEn | date: 'short' }}</small>
       </div>
 
       <div class="respuesta-form" *ngIf="authService.hasRole('ROLE_TUTOR') && !pregunta.respuesta">
@@ -56,8 +65,13 @@
           rows="3"
           placeholder="Escribe tu respuesta aquí"
         ></textarea>
-        <button class="btn-primary" type="button" (click)="responderPregunta(pregunta)" [disabled]="cargando">
-          Responder
+        <button
+          class="btn-primary"
+          type="button"
+          (click)="responderPregunta(pregunta)"
+          [disabled]="cargando"
+        >
+          {{ cargando ? 'Respondiendo...' : 'Responder' }}
         </button>
       </div>
     </div>
