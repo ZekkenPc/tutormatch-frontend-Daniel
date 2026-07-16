@@ -23,66 +23,50 @@
 
     <!-- Menú Dinámico -->
     <ul class="nav-links">
-      <li>
-        <a routerLink="/app/home" routerLinkActive="active-link" class="nav-item">
-          <svg class="nav-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-            />
-          </svg>
-          Inicio
-        </a>
-      </li>
-
-      <li>
+      <li *ngIf="authService.hasRole('ROLE_ALUMNO')">
         <a routerLink="/app/catalogo" routerLinkActive="active-link" class="nav-item">
           <svg class="nav-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"
-            />
+            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
           </svg>
           Catálogo
         </a>
       </li>
 
-      <li *ngIf="authService.hasRole('ROLE_TUTOR') || authService.hasRole('ROLE_ALUMNO')">
-        <a routerLink="/app/mis-tutorias" routerLinkActive="active-link" class="nav-item">
+      <li *ngIf="authService.hasRole('ROLE_ALUMNO') || authService.hasRole('ROLE_TUTOR')">
+        <a routerLink="/app/mi-agenda" routerLinkActive="active-link" class="nav-item">
           <svg class="nav-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-            <path
-              fill-rule="evenodd"
-              d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-              clip-rule="evenodd"
-            />
+            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
           </svg>
           Mis Tutorías
         </a>
       </li>
 
       <li *ngIf="authService.hasRole('ROLE_TUTOR') || authService.hasRole('ROLE_ALUMNO')">
-        <a routerLink="/app/mi-agenda" routerLinkActive="active-link" class="nav-item">
-          <svg class="nav-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              fill-rule="evenodd"
-              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-              clip-rule="evenodd"
-            />
+        <a routerLink="/app/historial" routerLinkActive="active-link" class="nav-item">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          Mi Agenda
+          Historial
         </a>
       </li>
 
+      <li>
+        <a routerLink="/app/avisos" routerLinkActive="active-link" class="nav-item">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M4 4h12v2H4V4z" />
+            <path d="M4 8h12v2H4V8z" />
+            <path d="M4 12h12v2H4v-2z" />
+          </svg>
+          Avisos
+        </a>
+      </li>
 
       <li *ngIf="authService.hasRole('ROLE_ADMIN')">
         <a routerLink="/app/admin" routerLinkActive="active-link" class="nav-item admin-link">
           <svg class="nav-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              fill-rule="evenodd"
-              d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"
-            />
+            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
           </svg>
           Panel Admin
         </a>

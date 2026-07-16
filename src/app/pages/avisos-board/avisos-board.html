@@ -1,0 +1,18 @@
+<section class="avisos-page">
+  <div class="avisos-header">
+    <h1>Tablón de Avisos</h1>
+    <p>Lee los anuncios oficiales más recientes de TutorMatch.</p>
+  </div>
+
+  <div *ngIf="avisos.length === 0" class="empty-state">
+    No hay avisos disponibles por el momento.
+  </div>
+
+  <div class="aviso-card" *ngFor="let aviso of avisos">
+    <div class="aviso-meta">
+      <strong>{{ aviso.titulo }}</strong>
+      <span>{{ aviso.creadoEn | date:'short' }}</span>
+    </div>
+    <p>{{ aviso.mensaje }}</p>
+  </div>
+</section>

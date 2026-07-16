@@ -93,4 +93,9 @@ export class InscripcionService {
   cancelarInscripcion(inscripcionId: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/inscripciones/${inscripcionId}`);
   }
+
+  /** Verifica si el alumno autenticado está inscrito a una sesión específica. */
+  estaInscrito(sesionId: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/inscripciones/sesiones/${sesionId}/estado`);
+  }
 }

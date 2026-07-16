@@ -1,0 +1,35 @@
+.avisos-page {
+  display: grid;
+  gap: 22px;
+}
+
+.avisos-header {
+  display: grid;
+  gap: 8px;
+}
+
+.aviso-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.aviso-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-muted);
+}
+
+.empty-state {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  background-color: #f8fafc;
+  border-radius: 16px;
+}

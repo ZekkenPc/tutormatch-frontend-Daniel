@@ -1,0 +1,79 @@
+<section class="foro-page">
+  <div class="foro-header">
+    <h1>Foro de la Tutoría</h1>
+    <p>Publica dudas o revisa las preguntas de otros alumnos inscritos.</p>
+  </div>
+
+  <div class="foro-card" *ngIf="authService.hasRole('ROLE_ALUMNO') && puedePublicarPregunta">
+    <label for="nuevaPregunta">Escribe tu pregunta</label>
+    <textarea
+      id="nuevaPregunta"
+      [(ngModel)]="nuevaPregunta.pregunta"
+      rows="4"
+      placeholder="¿Qué dudas tienes sobre el contenido de esta tutoría?"
+    ></textarea>
+    <button
+      [disabled]="cargando"
+      class="btn-primary"
+      type="button"
+      (click)="enviarPregunta()"
+      [disabled]="cargando"
+    >
+      {{ cargando ? 'Publicando...' : 'Publicar pregunta' }}
+    </button>
+  </div>
+
+  <div
+    class="foro-card"
+    *ngIf="authService.hasRole('ROLE_ALUMNO') && !puedePublicarPregunta && !cargandoInscripcion"
+  >
+    <p>Solo puedes publicar preguntas si ya estás inscrito formalmente en esta tutoría.</p>
+  </div>
+
+  <div class="preguntas-list">
+    <div *ngIf="preguntas.length === 0" class="empty-state">Aún no hay preguntas en este foro.</div>
+
+    <div *ngFor="let pregunta of preguntas" class="pregunta-card">
+      <div class="pregunta-info">
+        <div class="pregunta-meta">
+          <strong>{{ pregunta.alumnoNombre }}</strong>
+          <span>{{ pregunta.creadoEn | date: 'short' }}</span>
+        </div>
+        <p class="pregunta-texto">{{ pregunta.pregunta }}</p>
+      </div>
+
+      <div class="pregunta-actions">
+        <button
+          class="btn-danger"
+          type="button"
+          *ngIf="authService.hasRole('ROLE_ALUMNO') && pregunta.alumnoId === authService.userId"
+          (click)="eliminarPregunta(pregunta)"
+        >
+          Eliminar
+        </button>
+      </div>
+
+      <div class="respuesta-card" *ngIf="pregunta.respuesta">
+        <span class="label">Respuesta del tutor</span>
+        <p>{{ pregunta.respuesta }}</p>
+        <small>{{ pregunta.respondidoEn | date: 'short' }}</small>
+      </div>
+
+      <div class="respuesta-form" *ngIf="authService.hasRole('ROLE_TUTOR') && !pregunta.respuesta">
+        <textarea
+          [(ngModel)]="respuestaActiva[pregunta.id]"
+          rows="3"
+          placeholder="Escribe tu respuesta aquí"
+        ></textarea>
+        <button
+          class="btn-primary"
+          type="button"
+          (click)="responderPregunta(pregunta)"
+          [disabled]="cargando"
+        >
+          {{ cargando ? 'Respondiendo...' : 'Responder' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

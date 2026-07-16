@@ -1,0 +1,119 @@
+.admin-page {
+  display: grid;
+  gap: 28px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.admin-card,
+.avisos-list {
+  background-color: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+}
+
+.admin-card form {
+  display: grid;
+  gap: 16px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.form-group {
+  display: grid;
+  gap: 10px;
+}
+
+.form-group label {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-tertiary,
+.btn-danger {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: var(--text-dark);
+}
+
+.btn-tertiary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.btn-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.avisos-list {
+  display: grid;
+  gap: 14px;
+}
+
+.aviso-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background-color: #f8fafc;
+}
+
+.aviso-content {
+  display: grid;
+  gap: 10px;
+}
+
+.aviso-date {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.aviso-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.empty-state {
+  padding: 28px;
+  text-align: center;
+  color: var(--text-muted);
+}

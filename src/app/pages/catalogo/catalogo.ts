@@ -35,7 +35,14 @@ export class Catalogo implements OnInit, OnDestroy {
     public authService: AuthService,
   ) {}
 
+  sesionesInscritas: Set<string> = new Set<string>();
+
   ngOnInit(): void {
+    // Si el usuario tiene sesión iniciada, cargar su agenda para saber a qué sesiones ya está inscrito
+    if (this.authService.isLoggedIn) {
+      this.cargarAgendaPrevias();
+    }
+
     // Al iniciar, cargamos el catálogo completo
     this.cargarCatalogo(this.filtros);
 
@@ -45,6 +52,15 @@ export class Catalogo implements OnInit, OnDestroy {
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       takeUntil(this.destroy$),
     ).subscribe(filtros => this.cargarCatalogo(filtros));
+  }
+
+  private cargarAgendaPrevias(): void {
+    this.inscripcionService.getAgendaAlumno().subscribe({
+      next: (agenda) => {
+        this.sesionesInscritas = new Set(agenda.map(a => a.sesionId));
+      },
+      error: (err) => console.error('No se pudo cargar agenda previa', err)
+    });
   }
 
   ngOnDestroy(): void {
@@ -112,7 +128,10 @@ export class Catalogo implements OnInit, OnDestroy {
         this.cargarCatalogo({ ...this.filtros });
       },
       error: (err) => {
-        const msg = err.error || 'Error al inscribirte. Intenta de nuevo.';
+        let msg = 'Error al inscribirte. Intenta de nuevo.';
+        if (err.error) {
+          msg = typeof err.error === 'string' ? err.error : (err.error.message || JSON.stringify(err.error));
+        }
         this.toastService.mostrar(msg, 'error');
         this.inscribiendoId = null;
       },
