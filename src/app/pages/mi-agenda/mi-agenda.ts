@@ -11,6 +11,7 @@ import {
 import { InscripcionService, AgendaAlumno } from '../../core/services/inscripcion/inscripcion';
 import { ToastService } from '../../core/services/toast/toast';
 import { AuthService } from '../../core/services/auth/auth';
+import { finalize } from 'rxjs';
 import { Toast } from '../../shared/components/toast/toast';
 import { GestorRecursosComponent } from '../../shared/components/gestor-recursos/gestor-recursos.component';
 
@@ -52,7 +53,7 @@ export class MiAgenda implements OnInit {
   // -----------------------------------------------------------------------
   // Estado de carga de cancelaciones
   // -----------------------------------------------------------------------
-  isCanceling = false;
+  cancelingId: string | null = null;
 
   constructor(
     private sesionService: SesionService,
@@ -226,21 +227,21 @@ export class MiAgenda implements OnInit {
   // =========================================================================
 
   confirmarCancelacionSesion(sesion: SesionResponse): void {
-    this.isCanceling = true;
     this.toastService.preguntar(
       `¿Cancelar "${sesion.titulo}"? Esto notificará a los alumnos inscritos.`,
       () => {
-        this.sesionService.cancelar(sesion.id).subscribe({
-          next: () => {
-            this.isCanceling = false;
-            this.toastService.mostrar('Sesión cancelada.', 'info');
-            this.cargarAgendaTutor();
-          },
-          error: (err) => {
-            this.isCanceling = false;
-            this.toastService.mostrar(err.error || 'Error al cancelar.', 'error');
-          },
-        });
+        this.cancelingId = sesion.id;
+        this.sesionService.cancelar(sesion.id).pipe(
+          finalize(() => (this.cancelingId = null))
+        ).subscribe({
+            next: () => {
+              this.toastService.mostrar('Sesión cancelada.', 'info');
+              this.cargarAgendaTutor();
+            },
+            error: (err) => {
+              this.toastService.mostrar(err.error || 'Error al cancelar.', 'error');
+            },
+          });
       },
     );
   }
@@ -250,21 +251,21 @@ export class MiAgenda implements OnInit {
   // =========================================================================
 
   confirmarCancelacionInscripcion(sesion: AgendaAlumno): void {
-    this.isCanceling = true;
     this.toastService.preguntar(
       `¿Estás seguro de cancelar tu asistencia a "${sesion.titulo}"? Tu lugar quedará disponible para otros.`,
       () => {
-        this.inscripcionService.cancelarInscripcion(sesion.inscripcionId).subscribe({
-          next: () => {
-            this.toastService.mostrar('Inscripción cancelada. Tu lugar ha sido liberado.', 'info');
-            this.cargarAgendaAlumno();
-            this.isCanceling = false;
-          },
-          error: (err) => {
-            this.toastService.mostrar(err.error || 'Error al cancelar.', 'error');
-            this.isCanceling = false;
-          },
-        });
+        this.cancelingId = sesion.inscripcionId;
+        this.inscripcionService.cancelarInscripcion(sesion.inscripcionId).pipe(
+          finalize(() => (this.cancelingId = null))
+        ).subscribe({
+            next: () => {
+              this.toastService.mostrar('Inscripción cancelada. Tu lugar ha sido liberado.', 'info');
+              this.cargarAgendaAlumno();
+            },
+            error: (err) => {
+              this.toastService.mostrar(err.error || 'Error al cancelar.', 'error');
+            },
+          });
       },
     );
   }

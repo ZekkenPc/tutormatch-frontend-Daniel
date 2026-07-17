@@ -25,6 +25,7 @@ export class SesionForo {
   public cargandoInscripcion = false;
   public puedePublicarPregunta = false;
   public eliminandoPreguntaId: string | null = null;
+  public cargandoPreguntas = false;
 
   constructor(
     private preguntaService: PreguntaService,
@@ -59,15 +60,22 @@ export class SesionForo {
   }
 
   cargarPreguntas() {
+    this.cargandoPreguntas = true;
     this.preguntaService.listar(this.sesionId).subscribe({
-      next: (preguntas) => this.preguntas = preguntas,
+      next: (preguntas) => {
+        this.cargandoPreguntas = false;
+        this.preguntas = preguntas;
+      },
       error: () => this.toastService.mostrar('No se pudieron cargar las preguntas.', 'error'),
     });
   }
 
   enviarPregunta() {
     if (!this.puedePublicarPregunta) {
-      this.toastService.mostrar('Solo puedes publicar preguntas si ya estás inscrito en esta tutoría.', 'error');
+      this.toastService.mostrar(
+        'Solo puedes publicar preguntas si ya estás inscrito en esta tutoría.',
+        'error',
+      );
       return;
     }
 
@@ -117,18 +125,19 @@ export class SesionForo {
   eliminarPregunta(pregunta: PreguntaDto) {
     this.toastService.preguntar('¿Eliminar tu pregunta?', () => {
       this.eliminandoPreguntaId = pregunta.id;
-      this.preguntaService.eliminar(this.sesionId, pregunta.id).pipe(
-        finalize(() => this.eliminandoPreguntaId = null)
-      ).subscribe({
-        next: () => {
-          this.toastService.mostrar('Pregunta eliminada.', 'success');
-          this.preguntas = this.preguntas.filter((p) => p.id !== pregunta.id);
-        },
-        error: (err) => {
-          const mensaje = err.error?.message || 'No se pudo eliminar la pregunta.';
-          this.toastService.mostrar(mensaje, 'error');
-        },
-      });
+      this.preguntaService
+        .eliminar(this.sesionId, pregunta.id)
+        .pipe(finalize(() => (this.eliminandoPreguntaId = null)))
+        .subscribe({
+          next: () => {
+            this.toastService.mostrar('Pregunta eliminada.', 'success');
+            this.preguntas = this.preguntas.filter((p) => p.id !== pregunta.id);
+          },
+          error: (err) => {
+            const mensaje = err.error?.message || 'No se pudo eliminar la pregunta.';
+            this.toastService.mostrar(mensaje, 'error');
+          },
+        });
     });
   }
 }

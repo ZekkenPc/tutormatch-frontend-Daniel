@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RecursosService } from '../../../core/services/recursos/recursos.service';
 import { RecursoRequestDto, RecursoResponseDto } from '../../../core/models/recurso.model';
 import { ToastService } from '../../../core/services/toast/toast';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../../core/services/auth/auth';
 
 @Component({
@@ -23,6 +24,8 @@ export class GestorRecursosComponent implements OnInit {
   nuevoTitulo = '';
   nuevaUrl = '';
   enviando = false;
+
+  eliminandoRecursoId: string | null = null;
 
   constructor(
     private recursosService: RecursosService,
@@ -80,19 +83,25 @@ export class GestorRecursosComponent implements OnInit {
   }
 
   eliminarRecurso(recursoId: string): void {
-    this.toastService.preguntar(
-      '¿Estás seguro de eliminar este recurso?',
-      () => {
-        this.recursosService.eliminarRecurso(recursoId).subscribe({
+    this.toastService.preguntar('¿Estás seguro de eliminar este recurso?', () => {
+      this.eliminandoRecursoId = recursoId;
+      this.recursosService
+        .eliminarRecurso(recursoId)
+        .pipe(
+          finalize(() => {
+            this.eliminandoRecursoId = null;
+          }),
+        )
+        .subscribe({
           next: () => {
             this.recursos = this.recursos.filter((r) => r.id !== recursoId);
             this.toastService.mostrar('Recurso eliminado.', 'success');
           },
           error: () => {
+            this.recursos = this.recursos.filter((r) => r.id !== recursoId);
             this.toastService.mostrar('Error al eliminar el recurso.', 'error');
           },
         });
-      },
-    );
+    });
   }
 }

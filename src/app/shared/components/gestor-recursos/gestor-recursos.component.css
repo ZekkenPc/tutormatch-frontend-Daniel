@@ -1,39 +1,13 @@
 /* ==========================================
-   GESTOR DE RECURSOS – Componente
+   GESTOR DE RECURSOS – Estilos unificados
    ========================================== */
 
 .gestor-recursos {
-  background-color: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-/* ---------- Encabezado ---------- */
-.gestor-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.header-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  color: var(--primary-color);
-  flex-shrink: 0;
-}
-
-.header-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-dark);
+  /* El fondo y padding lo proporciona el panel contenedor */
+  /* Si quieres un fondo propio, añádelo, pero lo dejamos transparente */
 }
 
 /* ---------- Loading ---------- */
@@ -86,7 +60,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 16px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
   background-color: var(--bg-light);
   border: 1px solid #e2e8f0;
@@ -139,7 +113,7 @@
   color: var(--text-muted);
 }
 
-/* ---------- Botón Eliminar ---------- */
+/* ---------- Botón Eliminar (estilo cancelar) ---------- */
 .btn-eliminar {
   display: flex;
   align-items: center;
@@ -157,7 +131,7 @@
 
 .btn-eliminar:not(:disabled):hover {
   background-color: #fef2f2;
-  color: #ef4444;
+  color: #dc2626; /* rojo */
 }
 
 .btn-eliminar:disabled {
@@ -165,74 +139,92 @@
   opacity: 0.7;
 }
 
-/* ---------- Formulario ---------- */
+/* ---------- Formulario de agregar ---------- */
 .agregar-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-top: 16px;
-  border-top: 1px solid #e2e8f0;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
 }
 
 .form-title {
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-dark);
+  margin: 0;
 }
 
-.form-group {
+/* Usamos las mismas clases que el formulario de tutorías */
+.campo-grupo {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.form-group label {
-  font-size: 0.82rem;
+.campo-label {
+  font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.form-group input {
-  padding: 10px 14px;
-  font-size: 0.9rem;
-  font-family: 'Inter', sans-serif;
-  border: 1px solid #cbd5e1;
-  border-radius: var(--radius-md);
-  outline: none;
   color: var(--text-dark);
-  background-color: var(--white);
-  transition: all 0.2s ease;
 }
 
-.form-group input::placeholder {
-  color: #94a3b8;
+.campo-input {
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  font-family: inherit;
 }
 
-.form-group input:focus {
+.campo-input:focus {
+  outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.form-group input:disabled {
-  background-color: var(--bg-light);
+.campo-input::placeholder {
+  color: #cbd5e1;
+}
+
+.campo-input:disabled {
+  background: #f8fafc;
   cursor: not-allowed;
 }
 
-/* ---------- Botón Agregar ---------- */
+/* ---------- Botón Agregar (estilo primario unificado) ---------- */
 .btn-agregar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   align-self: flex-start;
-  padding: 10px 22px;
+  padding: 12px 24px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
   font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-agregar:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-agregar:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }

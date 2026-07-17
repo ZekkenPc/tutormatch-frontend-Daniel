@@ -1,76 +1,119 @@
+/* ==========================================
+   FORO – Estilos unificados
+   ========================================== */
+
 .foro-page {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
+/* ---------- Cabecera ---------- */
 .foro-header {
-  display: grid;
-  gap: 10px;
-  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 4px;
 }
 
-.foro-card,
-.pregunta-card {
+.foro-titulo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.foro-subtitulo {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ---------- Tarjeta base (para formulario y mensajes) ---------- */
+.foro-card {
   background-color: #ffffff;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-color, #e2e8f0);
   box-shadow: var(--shadow-sm);
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.foro-card label {
-  font-weight: 700;
-  display: block;
-  margin-bottom: 12px;
-}
-
-.foro-card textarea,
-.respuesta-form textarea {
-  width: 100%;
-  border: 1px solid rgba(203, 213, 225, 0.9);
-  border-radius: 14px;
-  padding: 14px;
-  font-size: 0.95rem;
-  font-family: inherit;
+/* ---------- Campos de texto (textarea) ---------- */
+.campo-textarea {
   resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
 }
 
-.btn-primary,
-.btn-danger {
+/* ---------- Botones primarios unificados ---------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--primary-color);
+  color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-sm);
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: #fff;
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
-.btn-danger {
-  background-color: #fee2e2;
-  color: #b91c1c;
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+.btn-publicar,
+.btn-responder {
+  align-self: flex-start; /* para que no se estiren */
+}
+
+/* ---------- Lista de preguntas ---------- */
 .preguntas-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
+/* ---------- Tarjeta de pregunta ---------- */
 .pregunta-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color, #e2e8f0);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  padding: 0;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.pregunta-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .pregunta-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 16px 20px;
   border-bottom: 1px solid var(--bg-light, #f8fafc);
 }
@@ -83,13 +126,20 @@
   font-size: 0.9rem;
 }
 
+.pregunta-meta strong {
+  color: var(--text-dark);
+}
+
 .pregunta-texto {
   padding: 16px 20px;
   margin: 0;
   line-height: 1.7;
   white-space: pre-wrap;
+  font-size: 0.95rem;
+  color: var(--text-dark);
 }
 
+/* ---------- Botón eliminar (unificado) ---------- */
 .btn-eliminar {
   display: flex;
   align-items: center;
@@ -106,8 +156,8 @@
 }
 
 .btn-eliminar:not(:disabled):hover {
-  background-color: #fef2f2; /* bg-red-50 */
-  color: #ef4444; /* text-red-500 */
+  background-color: #fef2f2;
+  color: #dc2626; /* red-600 */
 }
 
 .btn-eliminar:disabled {
@@ -115,36 +165,119 @@
   cursor: not-allowed;
 }
 
+/* ---------- Respuesta ---------- */
 .respuesta-card {
   background-color: #f8fafc;
-  border-radius: 14px;
-  padding: 16px;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 0 20px 16px 20px;
+  border-left: 3px solid var(--primary-color);
 }
 
-.respuesta-card .label {
+.respuesta-label {
   display: inline-block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.respuesta-form {
-  display: grid;
-  gap: 12px;
+.respuesta-card p {
+  margin: 0 0 8px 0;
+  line-height: 1.6;
+  color: var(--text-dark);
 }
 
-.empty-state {
-  padding: 28px;
-  text-align: center;
+.respuesta-fecha {
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
-/* Animación del spinner */
+/* ---------- Formulario de respuesta ---------- */
+.respuesta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px 16px 20px;
+  border-top: 1px solid var(--bg-light, #f8fafc);
+  padding-top: 16px;
+}
+
+.respuesta-form .campo-textarea {
+  min-height: 60px;
+}
+
+/* ---------- Estados de carga y vacío ---------- */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
 .spinner {
-  animation: spin 1s linear infinite;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
+  to { transform: rotate(360deg); }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 0;
+  color: var(--text-muted);
+}
+
+.empty-state svg {
+  color: #cbd5e1;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ---------- Ajustes responsive ---------- */
+@media (max-width: 600px) {
+  .foro-page {
+    padding: 0 12px;
+  }
+
+  .foro-card,
+  .pregunta-card {
+    padding: 16px;
+  }
+
+  .pregunta-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pregunta-meta {
+    font-size: 0.8rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-publicar,
+  .btn-responder {
+    align-self: stretch;
   }
 }

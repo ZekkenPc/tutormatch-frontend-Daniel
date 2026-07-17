@@ -205,13 +205,8 @@
             </svg>
             Editar
           </button>
-          <button class="btn-cancelar" [disabled]="isCanceling" (click)="confirmarCancelacionSesion(sesion)" id="btn-cancelar-sesion-{{ sesion.id }}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="15" y1="9" x2="9" y2="15"></line>
-              <line x1="9" y1="9" x2="15" y2="15"></line>
-            </svg>
-            {{ isCanceling ? 'Cancelando Tutoría...' : 'Cancelar tutoría' }}
+          <button class="btn-cancelar" [disabled]="cancelingId === sesion.id" (click)="confirmarCancelacionSesion(sesion)" id="btn-cancelar-sesion-{{ sesion.id }}">
+            {{ cancelingId === sesion.id ? 'Cancelando...' : 'Cancelar' }}
           </button>
         </div>
 
@@ -345,13 +340,8 @@
             </svg>
             Foro
           </button>
-          <button class="btn-cancelar" [disabled]="isCanceling" (click)="confirmarCancelacionInscripcion(sesion)" id="btn-cancelar-inscripcion-{{ sesion.inscripcionId }}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="15" y1="9" x2="9" y2="15"></line>
-              <line x1="9" y1="9" x2="15" y2="15"></line>
-            </svg>
-            {{ isCanceling ? 'Cancelando Inscripción...' : 'Cancelar Inscripción' }}
+          <button class="btn-cancelar" [disabled]="cancelingId === sesion.inscripcionId" (click)="confirmarCancelacionInscripcion(sesion)" id="btn-cancelar-inscripcion-{{ sesion.inscripcionId }}">
+            {{ cancelingId === sesion.inscripcionId ? 'Abandonando...' : 'Abandonar' }}
           </button>
         </div>
       </div>
