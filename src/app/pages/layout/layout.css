@@ -414,6 +414,30 @@
   }
 }
 
+.btn-perfil {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-perfil:hover {
+  background-color: rgba(37, 99, 235, 0.08);
+  color: var(--primary-color);
+}
+
+.btn-perfil.active-link {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: var(--primary-color);
+}
+
 /* Animación para el spinner de carga */
 .spinner {
   animation: spin 1s linear infinite;

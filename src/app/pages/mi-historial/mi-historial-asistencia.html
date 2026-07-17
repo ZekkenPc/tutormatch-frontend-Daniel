@@ -1,0 +1,32 @@
+<app-toast></app-toast>
+
+<div class="historial-container">
+  <div class="historial-header">
+    <h1>Mi historial de asistencias</h1>
+    <p class="historial-subtitle">Revisa a qué tutorías asististe, faltaste, o el tutor olvidó marcar.</p>
+  </div>
+
+  <div class="loading-state" *ngIf="cargando">
+    <div class="loading-spinner"></div>
+    <p>Cargando historial...</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && historial.length === 0">
+    <h3>Aún no tienes sesiones pasadas.</h3>
+    <p>Cuando asistas a tu primera tutoría, aparecerá aquí.</p>
+  </div>
+
+  <div class="lista-historial" *ngIf="!cargando && historial.length > 0">
+    <div class="item-historial" *ngFor="let item of historial" id="item-historial-{{ item.sesionId }}">
+      <div class="punto-estado" [ngClass]="item.estado.toLowerCase()"></div>
+      <div class="item-info">
+        <h4>{{ item.tituloSesion }}</h4>
+        <p class="item-tutor">Tutor: {{ item.tutorNombre }}</p>
+        <p class="item-fecha">{{ formatearFecha(item.fechaHora) }}</p>
+      </div>
+      <div class="item-estado-texto" [ngClass]="item.estado.toLowerCase()">
+        {{ etiquetaEstado(item.estado) }}
+      </div>
+    </div>
+  </div>
+</div>

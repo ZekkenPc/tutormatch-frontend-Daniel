@@ -1,0 +1,60 @@
+<app-toast></app-toast>
+
+<div class="asistencia-container">
+  <div class="asistencia-header">
+    <button class="btn-volver" (click)="volver()" id="btn-volver-agenda">← Volver a Mis Tutorías</button>
+    <h1>Tomar asistencia</h1>
+    <p class="asistencia-subtitle">
+      Marca quién asistió a la sesión. Tienes 24 horas desde que inicia para hacerlo.
+    </p>
+  </div>
+
+  <div class="loading-state" *ngIf="cargando">
+    <div class="loading-spinner"></div>
+    <p>Cargando lista de alumnos...</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && alumnos.length === 0">
+    <h3>No hay alumnos inscritos en esta sesión.</h3>
+  </div>
+
+  <div class="tabla-asistencia" *ngIf="!cargando && alumnos.length > 0">
+    <div class="fila fila-encabezado">
+      <span>Alumno</span>
+      <span>Correo</span>
+      <span>Estado</span>
+      <span>Acciones</span>
+    </div>
+
+    <div class="fila" *ngFor="let alumno of alumnos" id="fila-alumno-{{ alumno.alumnoId }}">
+      <span class="nombre">{{ alumno.nombreCompleto }}</span>
+      <span class="correo">{{ alumno.correo }}</span>
+      <span class="estado-badge" [ngClass]="alumno.estado.toLowerCase()">
+        {{ etiquetaEstado(alumno.estado) }}
+      </span>
+      <span class="acciones">
+        <ng-container *ngIf="alumno.puedeMarcar; else bloqueado">
+          <button
+            class="btn-presente"
+            [class.activo]="alumno.estado === 'PRESENTE'"
+            (click)="marcar(alumno, 'PRESENTE')"
+            id="btn-presente-{{ alumno.alumnoId }}"
+          >
+            Presente
+          </button>
+          <button
+            class="btn-ausente"
+            [class.activo]="alumno.estado === 'AUSENTE'"
+            (click)="marcar(alumno, 'AUSENTE')"
+            id="btn-ausente-{{ alumno.alumnoId }}"
+          >
+            Ausente
+          </button>
+        </ng-container>
+        <ng-template #bloqueado>
+          <span class="texto-bloqueado">🔒 Cerrado</span>
+        </ng-template>
+      </span>
+    </div>
+  </div>
+</div>

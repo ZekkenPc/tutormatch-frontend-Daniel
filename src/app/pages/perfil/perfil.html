@@ -1,0 +1,51 @@
+<div class="perfil-container">
+  <div class="perfil-header">
+    <h1>Mi perfil</h1>
+    <div class="perfil-tabs">
+      <button class="tab-btn" [class.activo]="pestanaActiva === 'perfil'" (click)="irAPerfil()" id="tab-ver-perfil">
+        Ver perfil
+      </button>
+      <button class="tab-btn" [class.activo]="pestanaActiva === 'trayectoria'" (click)="irATrayectoria()" id="tab-trayectoria">
+        Mi trayectoria
+      </button>
+    </div>
+  </div>
+
+  <!-- PESTAÑA: Ver perfil (vacía por ahora) -->
+  <div class="tab-content" *ngIf="pestanaActiva === 'perfil'">
+    <div class="empty-state">
+      <h3>Próximamente</h3>
+      <p>Aquí podrás editar tu información personal.</p>
+    </div>
+  </div>
+
+  <!-- PESTAÑA: Trayectoria -->
+  <div class="tab-content" *ngIf="pestanaActiva === 'trayectoria'">
+    <div class="loading-state" *ngIf="cargando">
+      <div class="loading-spinner"></div>
+      <p>Cargando estadísticas...</p>
+    </div>
+
+    <div class="stats-grid" *ngIf="!cargando">
+      <!-- Tarjetas de TUTOR -->
+      <ng-container *ngIf="authService.hasRole('ROLE_TUTOR') && estadisticasTutor">
+        <div class="stat-card stat-tutor" id="stat-sesiones-impartidas">
+          <span class="stat-valor">{{ estadisticasTutor.sesionesImpartidas }}</span>
+          <span class="stat-label">Sesiones impartidas</span>
+        </div>
+        <div class="stat-card stat-tutor" id="stat-alumnos-atendidos">
+          <span class="stat-valor">{{ estadisticasTutor.alumnosAtendidos }}</span>
+          <span class="stat-label">Alumnos atendidos</span>
+        </div>
+      </ng-container>
+
+      <!-- Tarjeta de ALUMNO -->
+      <ng-container *ngIf="authService.hasRole('ROLE_ALUMNO') && estadisticasAlumno">
+        <div class="stat-card stat-alumno" id="stat-tutorias-recibidas">
+          <span class="stat-valor">{{ estadisticasAlumno.tutoriasRecibidas }}</span>
+          <span class="stat-label">Tutorías recibidas</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

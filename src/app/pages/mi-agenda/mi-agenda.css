@@ -552,3 +552,55 @@
   .sesiones-grid { grid-template-columns: 1fr; }
   .formulario-panel { width: 100%; }
 }
+
+.btn-asistencia {
+  color: #16a34a;
+  border-right: 1px solid #f1f5f9;
+}
+.btn-asistencia:hover { background: #f0fdf4; }
+
+.btn-ver-historial {
+  margin-left: auto;
+  background: none;
+  border: 1.5px solid #16a34a;
+  color: #16a34a;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-ver-historial:hover { background: #f0fdf4; }
+
+.toggle-vista {
+  display: inline-flex;
+  gap: 4px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+.toggle-btn {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.toggle-btn.activo {
+  background: #fff;
+  color: var(--primary-color, #2563eb);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-asistencia:disabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+.btn-asistencia:disabled:hover { background: transparent; }

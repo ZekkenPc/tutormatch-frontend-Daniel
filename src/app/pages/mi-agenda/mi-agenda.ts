@@ -13,6 +13,7 @@ import { ToastService } from '../../core/services/toast/toast';
 import { AuthService } from '../../core/services/auth/auth';
 import { finalize } from 'rxjs';
 import { Toast } from '../../shared/components/toast/toast';
+import { PerfilService, SesionHistorialTutor } from '../../core/services/perfil/perfil';
 import { GestorRecursosComponent } from '../../shared/components/gestor-recursos/gestor-recursos.component';
 
 @Component({
@@ -28,6 +29,10 @@ export class MiAgenda implements OnInit {
   // -----------------------------------------------------------------------
   sesionesComoTutor: SesionResponse[] = [];
   cargandoTutor = false;
+
+  vistaTutor: 'proximas' | 'historial' = 'proximas';
+  sesionesHistorialTutor: SesionHistorialTutor[] = [];
+  cargandoHistorial = false;
 
   // -----------------------------------------------------------------------
   // Sección ALUMNO (HU-15, 16) — sesiones a asistir
@@ -58,6 +63,7 @@ export class MiAgenda implements OnInit {
   constructor(
     private sesionService: SesionService,
     private inscripcionService: InscripcionService,
+    private perfilService: PerfilService, 
     private router: Router,
     public toastService: ToastService,
     public authService: AuthService,
@@ -89,6 +95,27 @@ export class MiAgenda implements OnInit {
       },
     });
   }
+
+  cambiarVistaTutor(vista: 'proximas' | 'historial'): void {
+  this.vistaTutor = vista;
+  if (vista === 'historial' && this.sesionesHistorialTutor.length === 0) {
+    this.cargarHistorialTutor();
+  }
+}
+
+cargarHistorialTutor(): void {
+  this.cargandoHistorial = true;
+  this.perfilService.getHistorialTutor().subscribe({
+    next: (data) => {
+      this.sesionesHistorialTutor = data;
+      this.cargandoHistorial = false;
+    },
+    error: () => {
+      this.toastService.mostrar('No se pudo cargar tu historial de tutorías.', 'error');
+      this.cargandoHistorial = false;
+    },
+  });
+}
 
   // =========================================================================
   // SECCIÓN ALUMNO — HU-15: Cargar sesiones a asistir
@@ -272,6 +299,14 @@ export class MiAgenda implements OnInit {
 
   irAlForo(sesionId: string): void {
     this.router.navigate(['/app/sesion', sesionId, 'foro']);
+  }
+
+  irAAsistencia(sesionId: string): void {
+    this.router.navigate(['/app/sesion', sesionId, 'asistencia']);
+  }
+
+  irAMiHistorialAsistencia(): void {
+    this.router.navigate(['/app/mi-historial-asistencia']);
   }
 
   // =========================================================================

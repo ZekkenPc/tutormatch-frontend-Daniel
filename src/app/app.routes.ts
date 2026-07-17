@@ -6,9 +6,12 @@ import { Catalogo } from './pages/catalogo/catalogo';
 import { Admin } from './pages/admin/admin';
 import { AvisosBoard } from './pages/avisos-board/avisos-board';
 import { SesionForo } from './pages/sesion-foro/sesion-foro';
+import { TomarAsistencia } from './pages/tomar-asistencia/tomar-asistencia';
+import { MiHistorialAsistencia } from './pages/mi-historial/mi-historial-asistencia';
 import { authGuard } from './core/guards/auth-guard';
 import { publicGuard } from './core/guards/auth-guard';
 import { Register } from './pages/register/register';
+import { Perfil } from './pages/perfil/perfil';
 
 export const routes: Routes = [
   {
@@ -45,6 +48,11 @@ export const routes: Routes = [
       { path: 'admin', component: Admin },
       { path: 'avisos', component: AvisosBoard },
       { path: 'sesion/:id/foro', component: SesionForo },
+
+      // Asistencia y Perfil
+      { path: 'sesion/:id/asistencia', component: TomarAsistencia },
+      { path: 'mi-historial-asistencia', component: MiHistorialAsistencia },
+      { path: 'perfil', component: Perfil },
     ],
   },
   {
