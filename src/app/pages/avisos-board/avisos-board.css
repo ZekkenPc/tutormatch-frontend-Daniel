@@ -1,11 +1,42 @@
 .avisos-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
   display: grid;
   gap: 22px;
 }
 
+/* ---- Header ---- */
 .avisos-header {
-  display: grid;
-  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.avisos-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 6px;
+}
+
+.title-icon {
+  color: var(--primary-color);
+}
+
+.avisos-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.aviso-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-muted);
 }
 
 .aviso-card {

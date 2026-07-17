@@ -2,11 +2,30 @@
 
 <div class="asistencia-container">
   <div class="asistencia-header">
-    <button class="btn-volver" (click)="volver()" id="btn-volver-agenda">← Volver a Mis Tutorías</button>
-    <h1>Tomar asistencia</h1>
-    <p class="asistencia-subtitle">
-      Marca quién asistió a la sesión. Tienes 24 horas desde que inicia para hacerlo.
-    </p>
+    <div class="header-info">
+      <h1 class="asistencia-title">
+        <svg
+          class="title-icon"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            fill="none"
+          />
+        </svg>
+        Tomar asistencia
+      </h1>
+      <p class="asistencia-subtitle">
+        Marca quién asistió a la sesión. Tienes 24 horas desde que inicia para hacerlo.
+      </p>
+    </div>
   </div>
 
   <div class="loading-state" *ngIf="cargando">
@@ -52,7 +71,7 @@
           </button>
         </ng-container>
         <ng-template #bloqueado>
-          <span class="texto-bloqueado">🔒 Cerrado</span>
+          <span class="texto-bloqueado">Cerrado</span>
         </ng-template>
       </span>
     </div>

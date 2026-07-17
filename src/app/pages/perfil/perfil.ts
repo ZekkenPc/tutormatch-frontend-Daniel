@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth/auth';
 import { PerfilService, EstadisticasTutor, EstadisticasAlumno } from '../../core/services/perfil/perfil';
@@ -10,9 +10,7 @@ import { PerfilService, EstadisticasTutor, EstadisticasAlumno } from '../../core
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })
-export class Perfil {
-  pestanaActiva: 'perfil' | 'trayectoria' = 'perfil';
-
+export class Perfil implements OnInit {
   estadisticasTutor: EstadisticasTutor | null = null;
   estadisticasAlumno: EstadisticasAlumno | null = null;
   cargando = false;
@@ -22,18 +20,13 @@ export class Perfil {
     private perfilService: PerfilService,
   ) {}
 
-  irATrayectoria(): void {
-    this.pestanaActiva = 'trayectoria';
-    if (!this.estadisticasTutor && this.authService.hasRole('ROLE_TUTOR')) {
+  ngOnInit(): void {
+    if (this.authService.hasRole('ROLE_TUTOR')) {
       this.cargarEstadisticasTutor();
     }
-    if (!this.estadisticasAlumno && this.authService.hasRole('ROLE_ALUMNO')) {
+    if (this.authService.hasRole('ROLE_ALUMNO')) {
       this.cargarEstadisticasAlumno();
     }
-  }
-
-  irAPerfil(): void {
-    this.pestanaActiva = 'perfil';
   }
 
   private cargarEstadisticasTutor(): void {

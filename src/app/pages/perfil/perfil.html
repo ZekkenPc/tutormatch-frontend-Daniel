@@ -1,26 +1,31 @@
 <div class="perfil-container">
   <div class="perfil-header">
-    <h1>Mi perfil</h1>
-    <div class="perfil-tabs">
-      <button class="tab-btn" [class.activo]="pestanaActiva === 'perfil'" (click)="irAPerfil()" id="tab-ver-perfil">
-        Ver perfil
-      </button>
-      <button class="tab-btn" [class.activo]="pestanaActiva === 'trayectoria'" (click)="irATrayectoria()" id="tab-trayectoria">
-        Mi trayectoria
-      </button>
-    </div>
-  </div>
-
-  <!-- PESTAÑA: Ver perfil (vacía por ahora) -->
-  <div class="tab-content" *ngIf="pestanaActiva === 'perfil'">
-    <div class="empty-state">
-      <h3>Próximamente</h3>
-      <p>Aquí podrás editar tu información personal.</p>
+    <div class="header-info">
+      <h1 class="perfil-title">
+        <svg
+          class="title-icon"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            fill="none"
+          />
+        </svg>
+        Perfil
+      </h1>
+      <p class="perfil-subtitle">Revisa estadísticas sobre tu historial de tutorías.</p>
     </div>
   </div>
 
   <!-- PESTAÑA: Trayectoria -->
-  <div class="tab-content" *ngIf="pestanaActiva === 'trayectoria'">
+  <div class="tab-content">
     <div class="loading-state" *ngIf="cargando">
       <div class="loading-spinner"></div>
       <p>Cargando estadísticas...</p>

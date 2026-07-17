@@ -109,4 +109,14 @@ export class HistorialComponent implements OnInit {
       }
     });
   }
+  
+  formatearFecha(fechaIso: string): string {
+    return new Date(fechaIso).toLocaleDateString('es-MX', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
 }

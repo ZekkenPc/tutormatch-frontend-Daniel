@@ -2,8 +2,30 @@
 
 <div class="historial-container">
   <div class="historial-header">
-    <h1>Mi historial de asistencias</h1>
-    <p class="historial-subtitle">Revisa a qué tutorías asististe, faltaste, o el tutor olvidó marcar.</p>
+    <div class="header-info">
+      <h1 class="historial-title">
+        <svg
+          class="title-icon"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            fill="none"
+          />
+        </svg>
+        Mi historial de asistencias
+      </h1>
+      <p class="historial-subtitle">
+        Revisa a qué tutorías asististe, faltaste, o el tutor olvidó marcar.
+      </p>
+    </div>
   </div>
 
   <div class="loading-state" *ngIf="cargando">
@@ -17,7 +39,11 @@
   </div>
 
   <div class="lista-historial" *ngIf="!cargando && historial.length > 0">
-    <div class="item-historial" *ngFor="let item of historial" id="item-historial-{{ item.sesionId }}">
+    <div
+      class="item-historial"
+      *ngFor="let item of historial"
+      id="item-historial-{{ item.sesionId }}"
+    >
       <div class="punto-estado" [ngClass]="item.estado.toLowerCase()"></div>
       <div class="item-info">
         <h4>{{ item.tituloSesion }}</h4>

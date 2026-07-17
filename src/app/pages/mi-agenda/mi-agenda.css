@@ -3,7 +3,7 @@
    ============================================================ */
 
 .agenda-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 32px 24px;
   min-height: 100vh;
@@ -35,7 +35,10 @@
   margin: 0;
 }
 
-.title-icon { color: var(--primary-color); flex-shrink: 0; }
+.title-icon {
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
 
 .agenda-subtitle {
   font-size: 0.95rem;
@@ -57,7 +60,9 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: var(--shadow-md);
-  transition: background 0.25s, transform 0.2s;
+  transition:
+    background 0.25s,
+    transform 0.2s;
   white-space: nowrap;
 }
 
@@ -126,10 +131,18 @@
   animation: spin 0.8s linear infinite;
 }
 
-.spinner-tutor { border-top-color: var(--primary-color); }
-.spinner-alumno { border-top-color: #16a34a; }
+.spinner-tutor {
+  border-top-color: var(--primary-color);
+}
+.spinner-alumno {
+  border-top-color: #16a34a;
+}
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* ---- Empty state ---- */
 .empty-state {
@@ -142,7 +155,9 @@
   animation: fadeIn 0.4s ease;
 }
 
-.empty-icon { color: #cbd5e1; }
+.empty-icon {
+  color: #cbd5e1;
+}
 
 .empty-state h3 {
   font-size: 1.15rem;
@@ -175,7 +190,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: box-shadow 0.25s, transform 0.2s;
+  transition:
+    box-shadow 0.25s,
+    transform 0.2s;
   animation: cardEntrance 0.35s ease both;
   position: relative;
 }
@@ -186,8 +203,14 @@
 }
 
 @keyframes cardEntrance {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Acento de color lateral */
@@ -196,8 +219,12 @@
   width: 100%;
 }
 
-.accent-tutor  { background: linear-gradient(90deg, var(--primary-color), #60a5fa); }
-.accent-alumno { background: linear-gradient(90deg, #16a34a, #4ade80); }
+.accent-tutor {
+  background: linear-gradient(90deg, var(--primary-color), #60a5fa);
+}
+.accent-alumno {
+  background: linear-gradient(90deg, #16a34a, #4ade80);
+}
 
 /* Badge de estado (solo en tarjetas de tutor) */
 .card-estado-badge {
@@ -212,8 +239,14 @@
   text-transform: uppercase;
 }
 
-.card-estado-badge.activa   { background: #dcfce7; color: #166534; }
-.card-estado-badge.cancelada { background: #fee2e2; color: #991b1b; }
+.card-estado-badge.activa {
+  background: #dcfce7;
+  color: #166534;
+}
+.card-estado-badge.cancelada {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
 /* Cuerpo */
 .card-body {
@@ -246,7 +279,7 @@
 .tutor-avatar {
   width: 28px;
   height: 28px;
-  background: linear-gradient(135deg, #16a34a, #4ade80);
+  background: #16a34a;
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -281,17 +314,10 @@
   color: var(--text-muted);
 }
 
-.detalle-item svg { flex-shrink: 0; }
-
-.detalle-item.lugar-revelado {
-  background: #f0fdf4;
-  padding: 6px 10px;
-  border-radius: var(--radius-md);
-  border: 1px solid #bbf7d0;
+.detalle-item svg {
+  flex-shrink: 0;
+  color: var(--primary-color);
 }
-
-.detalle-item.lugar-revelado svg { color: #16a34a; }
-.detalle-item.lugar-revelado span { color: #15803d; }
 
 /* Cupo (tarjetas de tutor) */
 .cupo-container {
@@ -308,8 +334,12 @@
   color: var(--text-muted);
 }
 
-.cupo-label svg { color: var(--primary-color); }
-.cupo-label strong { color: var(--text-dark); }
+.cupo-label svg {
+  color: var(--primary-color);
+}
+.cupo-label strong {
+  color: var(--text-dark);
+}
 
 .cupo-barra-fondo {
   height: 5px;
@@ -324,7 +354,9 @@
   transition: width 0.5s ease;
 }
 
-.cupo-barra-tutor { background: var(--primary-color); }
+.cupo-barra-tutor {
+  background: var(--primary-color);
+}
 
 /* ---- Acciones de tarjetas ---- */
 .card-acciones {
@@ -364,19 +396,25 @@
   border-right: 1px solid #f1f5f9;
 }
 
-.btn-editar:hover { background: #eff6ff; }
+.btn-editar:hover {
+  background: #eff6ff;
+}
 
 .btn-cancelar {
   color: #dc2626;
 }
 
-.btn-cancelar:hover { background: #fef2f2; }
+.btn-cancelar:hover {
+  background: #fef2f2;
+}
 
 .btn-cancelar-inscripcion {
   color: #dc2626;
 }
 
-.btn-cancelar-inscripcion:hover { background: #fef2f2; }
+.btn-cancelar-inscripcion:hover {
+  background: #fef2f2;
+}
 
 /* ============================================================
    OVERLAY Y FORMULARIO DESLIZANTE
@@ -393,7 +431,9 @@
 
 .formulario-panel {
   position: fixed;
-  top: 0; right: 0; bottom: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   width: 420px;
   max-width: 100%;
   background: #fff;
@@ -430,13 +470,22 @@
 }
 
 .btn-cerrar-panel {
-  display: flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px;
-  background: #f1f5f9; border: none; border-radius: var(--radius-md);
-  cursor: pointer; color: var(--text-muted); transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.2s;
 }
 
-.btn-cerrar-panel:hover { background: #e2e8f0; }
+.btn-cerrar-panel:hover {
+  background: #e2e8f0;
+}
 
 .formulario-body {
   padding: 24px;
@@ -475,7 +524,9 @@
   font-size: 0.9rem;
   color: var(--text-dark);
   background: #fff;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   width: 100%;
   font-family: inherit;
 }
@@ -486,9 +537,14 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.campo-input::placeholder { color: #cbd5e1; }
+.campo-input::placeholder {
+  color: #cbd5e1;
+}
 
-.campo-textarea { resize: vertical; min-height: 80px; }
+.campo-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
 
 .campo-bloqueado {
   background: #f8fafc;
@@ -515,7 +571,9 @@
   transition: background 0.2s;
 }
 
-.btn-form-cancelar:hover { background: #f8fafc; }
+.btn-form-cancelar:hover {
+  background: #f8fafc;
+}
 
 .btn-form-guardar {
   flex: 2;
@@ -527,7 +585,9 @@
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    transform 0.15s;
   box-shadow: var(--shadow-sm);
 }
 
@@ -542,22 +602,41 @@
 }
 
 /* ---- Animaciones ---- */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
-  .agenda-container { padding: 20px 16px; }
-  .agenda-header { flex-direction: column; }
-  .agenda-title { font-size: 1.45rem; }
-  .sesiones-grid { grid-template-columns: 1fr; }
-  .formulario-panel { width: 100%; }
+  .agenda-container {
+    padding: 20px 16px;
+  }
+  .agenda-header {
+    flex-direction: column;
+  }
+  .agenda-title {
+    font-size: 1.45rem;
+  }
+  .sesiones-grid {
+    grid-template-columns: 1fr;
+  }
+  .formulario-panel {
+    width: 100%;
+  }
 }
 
 .btn-asistencia {
   color: #16a34a;
   border-right: 1px solid #f1f5f9;
 }
-.btn-asistencia:hover { background: #f0fdf4; }
+.btn-asistencia:hover {
+  background: #f0fdf4;
+}
 
 .btn-ver-historial {
   margin-left: auto;
@@ -570,7 +649,9 @@
   font-weight: 600;
   cursor: pointer;
 }
-.btn-ver-historial:hover { background: #f0fdf4; }
+.btn-ver-historial:hover {
+  background: #f0fdf4;
+}
 
 .toggle-vista {
   display: inline-flex;
@@ -603,4 +684,6 @@
   color: #cbd5e1;
   cursor: not-allowed;
 }
-.btn-asistencia:disabled:hover { background: transparent; }
+.btn-asistencia:disabled:hover {
+  background: transparent;
+}

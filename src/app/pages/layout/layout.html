@@ -127,12 +127,6 @@
         </div>
       </div>
 
-      <!-- Indicador de rol dinámico -->
-      <span class="role-badge" *ngIf="authService.isLoggedIn">
-        <span class="role-dot"></span>
-        {{ authService.primaryRole }}
-      </span>
-
       <!-- Perfil de Usuario con enlace a la vista de perfil -->
       <a routerLink="/app/perfil" class="user-profile" *ngIf="authService.isLoggedIn" style="text-decoration: none; cursor: pointer; transition: opacity 0.2s;" title="Ir a Mi Perfil" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">
         <div class="user-info">

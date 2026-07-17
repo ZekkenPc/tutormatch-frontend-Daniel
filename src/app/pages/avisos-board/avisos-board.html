@@ -1,7 +1,26 @@
 <section class="avisos-page">
   <div class="avisos-header">
-    <h1>Tablón de Avisos</h1>
-    <p>Lee los anuncios oficiales más recientes de TutorMatch.</p>
+    <div class="header-info">
+      <h1 class="avisos-title">
+        <svg
+          class="title-icon"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        Tablón de Avisos
+      </h1>
+      <p class="avisos-subtitle">Lee los anuncios oficiales más recientes de TutorMatch</p>
+    </div>
   </div>
 
   <div *ngIf="avisos.length === 0" class="empty-state">
@@ -11,7 +30,7 @@
   <div class="aviso-card" *ngFor="let aviso of avisos">
     <div class="aviso-meta">
       <strong>{{ aviso.titulo }}</strong>
-      <span>{{ aviso.creadoEn | date:'short' }}</span>
+      <span>{{ aviso.creadoEn | date: 'short' }}</span>
     </div>
     <p>{{ aviso.mensaje }}</p>
   </div>
